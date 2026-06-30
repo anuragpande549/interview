@@ -1,0 +1,93 @@
+.container {
+  min-height: 100vh;
+  background-color: var(--background);
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  color: var(--text-muted);
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 900px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+}
+
+.feedbackSection h2, .transcriptSection h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary);
+}
+
+.markdownBox {
+  background-color: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 1rem;
+  padding: 2rem;
+  color: var(--foreground);
+  line-height: 1.6;
+}
+
+.markdownBox h1, .markdownBox h2, .markdownBox h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--primary);
+}
+
+.markdownBox ul, .markdownBox ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.markdownBox p {
+  margin-bottom: 1rem;
+}
+
+.transcriptBox {
+  background-color: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  height: calc(100vh - 200px);
+  overflow-y: auto;
+}
+
+.transcriptLine {
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 0.95rem;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-size: 1.25rem;
+  color: var(--text-muted);
+}

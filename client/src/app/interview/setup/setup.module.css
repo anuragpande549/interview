@@ -1,0 +1,81 @@
+.setupContainer {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background-color: var(--background);
+}
+
+.card {
+  background-color: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 1rem;
+  padding: 3rem;
+  max-width: 800px;
+  width: 100%;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.typeCard {
+  border: 2px solid var(--surface-border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: rgba(255,255,255,0.02);
+}
+
+.typeCard h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--foreground);
+}
+
+.typeCard p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.typeCard:hover {
+  border-color: rgba(59, 130, 246, 0.5);
+  background-color: rgba(59, 130, 246, 0.05);
+}
+
+.typeCard.selected {
+  border-color: var(--primary);
+  background-color: rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 0 1px var(--primary);
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+}

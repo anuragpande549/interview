@@ -1,66 +1,135 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import styles from './page.module.css';
 
 export default function Home() {
+  const [isLogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [role, setRole] = useState('');
+  const [experience, setExperience] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+
+    const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
+    const payload = isLogin 
+      ? { email, password } 
+      : { email, password, name, role, experience_level: experience };
+
+    try {
+      const res = await fetch(`http://localhost:5000${endpoint}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Something went wrong');
+      }
+
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      
+      router.push('/dashboard');
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+    <main className={styles.container}>
+      <div className={styles.hero}>
+        <h1 className={styles.title}>Mock Interview AI</h1>
+        <p className={styles.subtitle}>
+          Practice real, dynamic voice interviews with an AI that listens, pushes back, and adapts.
+        </p>
+      </div>
+
+      <div className={styles.authCard}>
+        {error && <div className={styles.error}>{error}</div>}
+        <form onSubmit={handleSubmit}>
+          {!isLogin && (
+            <>
+              <div>
+                <label className="label">Full Name</label>
+                <input 
+                  type="text" 
+                  className="input-field" 
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required 
+                />
+              </div>
+              <div>
+                <label className="label">Target Job Role</label>
+                <input 
+                  type="text" 
+                  className="input-field" 
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  placeholder="e.g. Frontend Engineer"
+                  required 
+                />
+              </div>
+              <div>
+                <label className="label">Experience Level</label>
+                <input 
+                  type="text" 
+                  className="input-field" 
+                  value={experience}
+                  onChange={(e) => setExperience(e.target.value)}
+                  placeholder="e.g. Mid-Level, 3 years"
+                  required 
+                />
+              </div>
+            </>
+          )}
+
+          <div>
+            <label className="label">Email Address</label>
+            <input 
+              type="email" 
+              className="input-field" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required 
             />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </div>
+          <div>
+            <label className="label">Password</label>
+            <input 
+              type="password" 
+              className="input-field" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required 
+            />
+          </div>
+
+          <button type="submit" className="btn-primary" style={{ width: '100%' }} disabled={loading}>
+            {loading ? 'Processing...' : (isLogin ? 'Sign In' : 'Create Account')}
+          </button>
+        </form>
+
+        <div className={styles.toggleText}>
+          {isLogin ? "Don't have an account?" : "Already have an account?"}
+          <button type="button" onClick={() => setIsLogin(!isLogin)}>
+            {isLogin ? 'Sign up' : 'Log in'}
+          </button>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }

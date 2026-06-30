@@ -1,0 +1,115 @@
+.layout {
+  min-height: 100vh;
+  background-color: var(--background);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.userMenu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.userName {
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.logoutBtn {
+  background: none;
+  border: 1px solid var(--surface-border);
+  color: var(--text-muted);
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.logoutBtn:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: var(--error);
+  border-color: var(--error);
+}
+
+.mainContent {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-size: 1.25rem;
+  color: var(--text-muted);
+}
+
+.dashboardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.dashboardTitle {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.sessionsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.sessionCard {
+  background-color: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.sessionCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  border-color: var(--primary);
+}
+
+.sessionType {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.sessionDate {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.sessionStatus {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background-color: rgba(34, 197, 94, 0.1);
+  color: var(--success);
+}

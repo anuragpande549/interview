@@ -1,10 +1,10 @@
 'use client';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Vapi from '@vapi-ai/web';
 import styles from './session.module.css';
 
-export default function InterviewSession() {
+function InterviewSessionContent() {
   const [status, setStatus] = useState('initializing');
   const [transcript, setTranscript] = useState([]);
   const vapiRef = useRef(null);
@@ -188,5 +188,13 @@ export default function InterviewSession() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function InterviewSession() {
+  return (
+    <Suspense fallback={<div>Loading interview session...</div>}>
+      <InterviewSessionContent />
+    </Suspense>
   );
 }

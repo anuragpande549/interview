@@ -40,8 +40,11 @@ router.post('/', authMiddleware, async (req, res) => {
 // Get a specific session
 router.get('/:id', authMiddleware, async (req, res) => {
   try {
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) return res.status(400).json({ error: 'Invalid session ID' });
+
     const session = await prisma.interviewSession.findUnique({
-      where: { id: parseInt(req.params.id) }
+      where: { id }
     });
     
     if (!session || session.userId !== req.user.id) {
@@ -58,10 +61,13 @@ router.get('/:id', authMiddleware, async (req, res) => {
 // Complete a session, provide transcript, and generate feedback
 router.post('/:id/complete', authMiddleware, async (req, res) => {
   try {
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) return res.status(400).json({ error: 'Invalid session ID' });
+
     const { transcript } = req.body;
     
     let session = await prisma.interviewSession.findUnique({
-      where: { id: parseInt(req.params.id) }
+      where: { id }
     });
 
     if (!session || session.userId !== req.user.id) {

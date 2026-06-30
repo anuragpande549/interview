@@ -73,14 +73,16 @@ export default function InterviewSession() {
     `;
 
     vapiRef.current.start({
+      name: 'Interviewer',
+      firstMessage: `Hello ${user.name}, I'm the AI interviewer. Let's get started with your ${interviewType} interview. Can you hear me well?`,
       model: {
         provider: 'openai',
-        model: 'gpt-4o-mini',
+        model: 'gpt-3.5-turbo',
         messages: [{ role: 'system', content: systemPrompt }]
       },
       voice: {
         provider: '11labs',
-        voiceId: 'bIHbv24MWmeRgasZH58o' // Standard professional voice
+        voiceId: 'paula'
       }
     });
   };

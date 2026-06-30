@@ -1,22 +1,23 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './report.module.css';
 import ReactMarkdown from 'react-markdown';
 
 export default function ReportPage({ params }) {
+  const { id } = use(params);
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
     fetchSession();
-  }, [params.id]);
+  }, [id]);
 
   const fetchSession = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:5000/api/sessions/${params.id}`, {
+      const res = await fetch(`http://localhost:5000/api/sessions/${id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {

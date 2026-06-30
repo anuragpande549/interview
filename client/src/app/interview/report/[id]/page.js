@@ -17,7 +17,8 @@ export default function ReportPage({ params }) {
   const fetchSession = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:5000/api/sessions/${id}`, {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://interview-green-ten.vercel.app';
+      const res = await fetch(`${API_URL}/api/sessions/${id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (res.ok) {

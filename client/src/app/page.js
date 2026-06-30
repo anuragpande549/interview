@@ -25,7 +25,8 @@ export default function Home() {
       : { email, password, name, role, experience_level: experience };
 
     try {
-      const res = await fetch(`http://localhost:5000${endpoint}`, {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://interview-green-ten.vercel.app';
+      const res = await fetch(`${API_URL}${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

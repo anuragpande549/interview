@@ -101,7 +101,8 @@ function InterviewSessionContent() {
       // format transcript for backend
       const formattedTranscript = transcriptRef.current.map(msg => `${msg.role === 'user' ? 'Candidate' : 'Interviewer'}: ${msg.text}`).join('\n');
       
-      const res = await fetch(`http://localhost:5000/api/sessions/${sessionId}/complete`, {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://interview-green-ten.vercel.app';
+      const res = await fetch(`${API_URL}/api/sessions/${sessionId}/complete`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

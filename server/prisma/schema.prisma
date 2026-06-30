@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               Int                @id @default(autoincrement())
+  email            String             @unique
+  password         String
+  name             String
+  role             String?
+  experience_level String?
+  sessions         InterviewSession[]
+  createdAt        DateTime           @default(now())
+}
+
+model InterviewSession {
+  id              Int      @id @default(autoincrement())
+  userId          Int
+  type            String
+  status          String   @default("started") // started, completed
+  transcript      String?  @db.Text
+  feedback_report String?  @db.Text
+  createdAt       DateTime @default(now())
+  user            User     @relation(fields: [userId], references: [id])
+}
